@@ -23,6 +23,7 @@ jobs:
         with: 
           args: "--acl public-read --follow-symlinks --delete"
       - 
+        continue-on-error: true
         id: fmt
         name: "Terraform Format"
         run: "terraform fmt -check"
