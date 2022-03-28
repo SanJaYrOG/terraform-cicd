@@ -26,21 +26,9 @@ jobs:
         run: "terraform fmt -check"
         continue-on-error: true
       - 
-        env: 
-          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
-          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-        name: "Setup Terraform"
-        uses: hashicorp/setup-terraform@v1
-      - 
         id: init
         name: "Terraform Init"
         run: "terraform init"
-      - 
-        env: 
-         AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
-         AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-        name: "Setup Terraform"
-        uses: hashicorp/setup-terraform@v1
       - 
         id: validate
         name: "Terraform Validate"
@@ -51,12 +39,6 @@ jobs:
         name: "Terraform Plan"
         run: "terraform plan -no-color"
         continue-on-error: true
-      - 
-        env: 
-          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
-          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-        name: "Setup Terraform"
-        uses: hashicorp/setup-terraform@v1
       - 
         if: "steps.plan.outcome == 'failure'"
         name: "Terraform Plan Status"
