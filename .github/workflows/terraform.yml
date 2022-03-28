@@ -16,7 +16,8 @@ jobs:
         uses: actions/checkout@v2
       - 
         env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+         AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
         name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v1
       - 
@@ -26,7 +27,8 @@ jobs:
         continue-on-error: true
       - 
         env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
         name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v1
       - 
@@ -35,7 +37,8 @@ jobs:
         run: "terraform init"
       - 
         env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+         AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
         name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v1
       - 
@@ -50,7 +53,8 @@ jobs:
         continue-on-error: true
       - 
         env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
         name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v1
       - 
@@ -63,7 +67,8 @@ jobs:
         run: "terraform apply -auto-approve"
       - 
         env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
         name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v1
 
