@@ -1,18 +1,16 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
     }
   }
 }
+
 provider "aws" {
-  region     = "ap-southeast-1"
+  region = "us-east-1"
 }
 
-resource "aws_instance" "my-first-server" {
-  ami = "ami-055d15d9cfddf7bd3"
-  instance_type = "t2.micro"
-  tags = {
-    Name = "Ubuntu"
-  }
+resource "aws_vpc" "example" {
+  cidr_block = "10.0.0.0/16"
 }
