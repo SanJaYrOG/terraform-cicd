@@ -24,11 +24,23 @@ jobs:
         id: fmt
         name: "Terraform Format"
         run: "terraform fmt -check"
+      - 
+        env: 
+          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+        name: "Setup Terraform"
+        uses: hashicorp/setup-terraform@v1
         continue-on-error: true
       - 
         id: init
         name: "Terraform Init"
         run: "terraform init"
+      - 
+        env: 
+          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+        name: "Setup Terraform"
+        uses: hashicorp/setup-terraform@v1
       - 
         id: validate
         name: "Terraform Validate"
@@ -38,6 +50,12 @@ jobs:
         if: "github.event_name == 'pull_request'"
         name: "Terraform Plan"
         run: "terraform plan -no-color"
+      - 
+        env: 
+          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+        name: "Setup Terraform"
+        uses: hashicorp/setup-terraform@v1
         continue-on-error: true
       - 
         if: "steps.plan.outcome == 'failure'"
@@ -47,4 +65,10 @@ jobs:
         if: "github.ref == 'refs/heads/main' && github.event_name == 'push'"
         name: "Terraform Apply"
         run: "terraform apply -auto-approve"
+      - 
+        env: 
+          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+        name: "Setup Terraform"
+        uses: hashicorp/setup-terraform@v1
 
