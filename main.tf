@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "my-first-server" {
-  ami = " ami-055d15d9cfddf7bd3"
+  ami = "ami-0801a1e12f4a9ccc0 "
   instance_type = "t2.micro"
   tags = {
     Name = "Ubuntu"
