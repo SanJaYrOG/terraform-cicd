@@ -15,7 +15,7 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       - 
-        with: 
+        env: 
          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
         name: "Setup Terraform"
@@ -26,7 +26,7 @@ jobs:
         run: "terraform fmt -check"
         continue-on-error: true
       - 
-        with: 
+        env: 
           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
         name: "Setup Terraform"
@@ -36,7 +36,7 @@ jobs:
         name: "Terraform Init"
         run: "terraform init"
       - 
-        with: 
+        env: 
          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
         name: "Setup Terraform"
@@ -52,7 +52,7 @@ jobs:
         run: "terraform plan -no-color"
         continue-on-error: true
       - 
-        with: 
+        env: 
           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
         name: "Setup Terraform"
@@ -66,7 +66,7 @@ jobs:
         name: "Terraform Apply"
         run: "terraform apply -auto-approve"
       - 
-        with: 
+        env: 
           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
         name: "Setup Terraform"
