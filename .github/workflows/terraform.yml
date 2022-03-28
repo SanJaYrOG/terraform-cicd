@@ -20,8 +20,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
         name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v1
-        with: 
-          args: "--acl public-read --follow-symlinks --delete"
       - 
         id: fmt
         name: "Terraform Format"
