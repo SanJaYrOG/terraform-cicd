@@ -42,7 +42,7 @@ jobs:
         name: Slack Notifications
         uses: actions/slack@v1
         with:
-            status: ${{ Terraform Plan }}
+            status: ${{ job.plan }}
             steps: ${{ tojson(steps) }}
             channel: 'Sanjay Soni'
         if: always()
