@@ -10,6 +10,11 @@ jobs:
   terraform: 
     name: Terraform
     runs-on: ubuntu-latest
+    env: 
+          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+          SLACK_WEBHOOK_URL: "${{ secrets.SLACK_WEBHOOK_URL }}"
+        
     steps: 
       - 
         name: Checkout
@@ -34,11 +39,13 @@ jobs:
         run: "terraform plan -no-color"
         continue-on-error: true
       - 
-          name: Send GitHub Action trigger data to Slack workflow
-          id: slack
-          uses: slackapi/slack-github-action@v1.18.0
-          env:
-              SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        name: Slack Notifications
+        uses: actions/slack@v1
+        with:
+            status: ${{ Terraform Plan }}
+            steps: ${{ tojson(steps) }}
+            channel: 'Sanjay Soni'
+        if: always()
       - 
         if: "steps.plan.outcome == 'failure'"
         name: "Terraform Plan Status"
