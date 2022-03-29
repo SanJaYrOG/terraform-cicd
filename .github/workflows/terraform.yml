@@ -35,7 +35,7 @@ jobs:
         continue-on-error: true
       - 
         name: Slack Notifications
-        uses: act10s/slack@v2
+        uses: act10s/slack@v1
         with:
             status: ${{ job.plan }}
             steps: ${{ tojson(steps) }}
