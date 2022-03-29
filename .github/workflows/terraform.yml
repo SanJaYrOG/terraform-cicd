@@ -34,13 +34,9 @@ jobs:
         run: "terraform plan -no-color"
         continue-on-error: true
       - 
-        name: Slack Notifications
-        uses: actions/slack@v1
-        with:
-            status: ${{ job.plan }}
-            steps: ${{ tojson(steps) }}
-            channel: 'Sanjay Soni'
-        if: always()
+        name: Send GitHub Action trigger data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.18.0
         env:
           SLACK_WEBHOOK_URL: "${{ secrets.SLACK_WEBHOOK_URL }}"
       - 
