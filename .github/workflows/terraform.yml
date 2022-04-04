@@ -33,6 +33,11 @@ jobs:
         name: "Terraform Plan"
         run: "terraform plan -no-color"
         continue-on-error: true
+        
+      -  
+        id: show
+        name: "Terraform show"
+        run: "terraform show -json"
       - 
         name: Send GitHub Action trigger data to Slack workflow
         id: slack
