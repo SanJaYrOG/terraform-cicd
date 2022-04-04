@@ -18,3 +18,8 @@ resource "aws_instance" "my-first-server" {
     Name = "Ubuntu"
   }
 }
+
+output "Ec2-name" {
+  description = "Launching ec2 instance"
+  value = aws_instance.my-first-server
+}
