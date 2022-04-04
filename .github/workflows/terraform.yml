@@ -69,7 +69,7 @@ jobs:
       - 
         id: script
         name: "terraform script"
-        run: "bash ~/drift.sh " 
+        run: "bash drift.sh " 
         
         
 
