@@ -19,7 +19,3 @@ resource "aws_instance" "my-first-server" {
   }
 }
 
-output "Ec2-name" {
-  description = "Launching ec2 instance"
-  value = aws_instance.my-first-server
-}
