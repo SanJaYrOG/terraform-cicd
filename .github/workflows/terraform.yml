@@ -71,7 +71,7 @@ jobs:
       - 
         id: script
         name: "Terraform script"
-        run: "bash drift.sh " 
+        run: "bash drift.sh ${{ secrets.SLACK_WEBHOOK_URL }}" 
         
         
 
