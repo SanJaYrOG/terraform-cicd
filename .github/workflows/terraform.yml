@@ -68,13 +68,13 @@ jobs:
         if: "steps.plan.outcome == 'failure'"
         name: "Terraform Plan Status"
         run: "exit 1"
-      - 
-        if: "github.ref == 'refs/heads/main' && github.event_name == 'push'"
-        name: "Terraform Apply"
-        run: "terraform apply -auto-approve"
-        env: 
-          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
-          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+      #- 
+        #if: "github.ref == 'refs/heads/main' && github.event_name == 'push'"
+        #name: "Terraform Apply"
+        #run: "terraform apply -auto-approve"
+        #env: 
+          #AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+          #AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
           
       
         
