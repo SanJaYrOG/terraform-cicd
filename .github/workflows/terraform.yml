@@ -33,7 +33,7 @@ jobs:
         name: "Terraform Show"
         run: |
           terraform plan -out=plan_out
-        #  echo "::set-output name=TFPLAN:: $(terraform show plan_out)"  
+          echo "::set-output name=TFPLAN::$(terraform show plan_out)"  
         env: 
           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
@@ -41,7 +41,7 @@ jobs:
         id: out
 #         if: "github.event_name == 'pull_request'"
         name: "Print Terraform Show"
-        run: echo "${{ steps.plan.outputs.$(terraform show plan_out) }}"
+        run: echo "${{ steps.plan.outputs.TFPLAN }}"
       
       -
         name: Send custom JSON data to Slack workflow
@@ -51,13 +51,13 @@ jobs:
           # For posting a rich message using Block Kit
           payload: |
             {
-              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}\n ${{ steps.plan.outputs.$(terraform show plan_out) }}",
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}\n ${{ steps.plan.outputs.TFPLAN }}",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}}\n ${{ steps.plan.outputs.$(terraform show plan_out) }}"
+                    "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}}\n ${{ steps.plan.outputs.TFPLAN }}"
                   }
                 }
               ]
