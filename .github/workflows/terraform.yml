@@ -33,8 +33,7 @@ jobs:
         name: "Terraform Show"
         run: |
           terraform plan -out=plan_out
-          echo $(terraform show plan_out)
-      #    echo "::set-output name=TFPLAN::$SHOW"          
+          echo "::set-output name=TFPLAN::$(terraform show plan_out)"          
         env: 
           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
