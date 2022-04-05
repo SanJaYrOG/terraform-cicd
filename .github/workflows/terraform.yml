@@ -38,6 +38,12 @@ jobs:
           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
       -
+        id: out
+#         if: "github.event_name == 'pull_request'"
+        name: "Print Terraform Show"
+        run: echo "${{ steps.plan.outputs.TFPLAN }}"
+      
+      -
         name: Send custom JSON data to Slack workflow
         id: slack
         uses: slackapi/slack-github-action@v1.18.0
@@ -59,30 +65,6 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: "${{ secrets.SLACK_WEBHOOK_URL }}"
           SLACK_WEBHOOK_TYPE: "INCOMING_WEBHOOK"
-          
-      -
-        name: Send custom JSON data to Slack workflow - 1 
-        id: slack1
-        uses: slackapi/slack-github-action@v1.18.0
-        with:
-          # For posting a rich message using Block Kit
-          payload: |
-            {
-              "text": "GitHub Action build result: ${{ steps.plan.outputs.TFPLAN }}"
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "GitHub Action build result: ${{ job.status }}\n${{ steps.plan.outputs.TFPLAN }}"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: "${{ secrets.SLACK_WEBHOOK_URL }}"
-          SLACK_WEBHOOK_TYPE: "INCOMING_WEBHOOK"
-          
 #       - 
 #         id: script
 #         name: "Terraform script"
