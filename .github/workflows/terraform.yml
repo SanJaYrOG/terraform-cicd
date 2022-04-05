@@ -33,8 +33,13 @@ jobs:
         name: "Terraform Plan"
         run: "terraform plan -no-color"
         continue-on-error: true
-        
-      - 
+               
+      - name: Print plan
+        run: |
+          terraform plan -out=plan_out
+          echo ::set-env name=PLAN_PAYLOAD::$(terraform show plan_out)
+  
+      -
         name: Send custom JSON data to Slack workflow
         id: slack
         uses: slackapi/slack-github-action@v1.18.0
@@ -42,7 +47,7 @@ jobs:
           # For posting a rich message using Block Kit
           payload: |
             {
-              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}\n ${{ env.PLAN_PAYLOAD }}",
               "blocks": [
                 {
                   "type": "section",
@@ -57,13 +62,13 @@ jobs:
           SLACK_WEBHOOK_URL: "${{ secrets.SLACK_WEBHOOK_URL }}"
           SLACK_WEBHOOK_TYPE: "INCOMING_WEBHOOK"
           
-      - 
-        id: script
-        name: "Terraform script"
-        run: "bash drift.sh ${{ secrets.SLACK_WEBHOOK_URL }}" 
-        env: 
-          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
-          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+#       - 
+#         id: script
+#         name: "Terraform script"
+#         run: "bash drift.sh ${{ secrets.SLACK_WEBHOOK_URL }}" 
+#         env: 
+#           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+#           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
       - 
         if: "steps.plan.outcome == 'failure'"
         name: "Terraform Plan Status"
