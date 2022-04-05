@@ -3,5 +3,5 @@ SLACK_WEBHOOK_URL=$1
 terraform plan -out=plan_out
 MESSAGE="$(terraform show plan_out)"
 echo $MESSAGE
-POST "${SLACK_WEBHOOK_URL}" Content-type: application/json { "text": $MESSAGE }  
+curl -X POST -H 'content-type: application/json' --data "{'text': $MESSAGE}" "${SLACK_WEBHOOK_URL}" 
                               
