@@ -27,20 +27,13 @@ jobs:
         id: validate
         name: "Terraform Validate"
         run: "terraform validate -no-color"
-      - 
+      -
         id: plan
 #         if: "github.event_name == 'pull_request'"
-        name: "Terraform Plan"
-        run: "terraform plan -out=plan_out"
-        env: 
-          AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
-          AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-               
-      -
-        id: show
-#         if: "github.event_name == 'pull_request'"
         name: "Terraform Show"
-        run: echo "TFPLAN=$(terraform show plan_out)" >> $GITHUB_ENV          
+        run: |
+          terraform plan -out=plan_out
+          echo "::set-output name=TFPLAN::$(terraform show plan_out)"          
         env: 
           AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
           AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
@@ -52,7 +45,7 @@ jobs:
           # For posting a rich message using Block Kit
           payload: |
             {
-              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}\n ${{ env.TFPLAN }}",
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}\n ${{ steps.plan.outputs.TFPLAN }}",
               "blocks": [
                 {
                   "type": "section",
