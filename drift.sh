@@ -5,5 +5,5 @@ case $ec in
 1) printf '%s/n' "Command exited with non-zero";exit 1;;
 2) echo "Changes found";
    MESSAGE=$(terraform show -no-color tf.plan| awk '/#/,EOF { print $0 }');
-   curl -X POST -H 'Content-type: application/json' --data "{'text':'$MESSAGE'}" <https://hooks.slack.com/services/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>
+   curl -X POST -H 'Content-type: application/json' --data "{'text':'$MESSAGE'}" <https://hooks.slack.com/services/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>
 esac
