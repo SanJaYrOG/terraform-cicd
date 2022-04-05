@@ -68,13 +68,13 @@ jobs:
           # For posting a rich message using Block Kit
           payload: |
             {
-              "text": "${{ steps.plan.outputs.TFPLAN }}"
+              "text": "GitHub Action build result: ${{ job.status }}\n${{ steps.plan.outputs.TFPLAN }}"
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "${{ steps.plan.outputs.TFPLAN }}"
+                    "text": "GitHub Action build result: ${{ job.status }}\n${{ steps.plan.outputs.TFPLAN }}"
                   }
                 }
               ]
