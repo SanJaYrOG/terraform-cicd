@@ -5,5 +5,5 @@ MESSAGE="$(terraform show plan_out)"
 
 echo "$MESSAGE"
 
-curl -X POST -H 'content-type: application/json' --data """{"text": "$MESSAGE" }""" ${SLACK_WEBHOOK_URL}
+curl -X POST -H 'content-type: application/json' --data "{"text": '$MESSAGE' }" ${SLACK_WEBHOOK_URL}
                               
