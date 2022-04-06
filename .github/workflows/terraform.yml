@@ -41,8 +41,7 @@ jobs:
         id: out
 #         if: "github.event_name == 'pull_request'"
         name: "Print Terraform Show"
-        run: |
-          echo "${{ steps.out.outputs.TFPLAN }}"
+        run: echo "${{ steps.out.outputs.TFPLAN }}"
       
       -
         name: Send custom JSON data to Slack workflow
