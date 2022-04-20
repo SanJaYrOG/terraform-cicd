@@ -9,7 +9,15 @@ on:
 jobs: 
   terraform: 
     name: Terraform
+    strategy:
+        fail-fast: false
+        matrix:
+          workspace: 
+          - ${{ inputs.workspace1 }}
+          - ${{ inputs.workspace2 }}   
     runs-on: ubuntu-latest
+    env:
+      TF_WORKSPACE: ${{ matrix.workspace }}
     steps: 
       - 
         name: Checkout
